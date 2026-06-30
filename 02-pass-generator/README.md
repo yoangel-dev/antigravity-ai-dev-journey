@@ -1,4 +1,5 @@
 # 🔐 Generador de Contraseñas Seguras
+<<<<<<< HEAD
 ### 🚀 Aplicación Web Profesional desarrollada con HTML5, CSS3 y JavaScript Vanilla
 
 <div align="center">
@@ -9,10 +10,26 @@
   <img src="https://img.shields.io/badge/Crypto.getRandomValues-Seguro-0A84FF?style=for-the-badge" alt="Web Crypto API">
 
   <p><em>Generador de contraseñas moderno, seguro y accesible, construido sin frameworks y siguiendo estándares profesionales de ingeniería frontend.</em></p>
+=======
+
+<div align="center">
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![WCAG](https://img.shields.io/badge/WCAG-Accessible-005A9C?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+**Una aplicación web moderna y segura para generar contraseñas aleatorias de alta calidad.**
+
+[Ver demo](#) · [Reportar error](#) · [Solicitar función](#)
+
+>>>>>>> a6704eb (Add 02-pass-generator project with full documentation (README.md) — Desarrollado por Yoangel-dev Soluciones Web)
 </div>
 
 ---
 
+<<<<<<< HEAD
 ## 📋 Descripción General
 
 El **Generador de Contraseñas Seguras** es una aplicación web creada para concebir contraseñas aleatorias, robustas y adaptadas a las necesidades exactas del usuario. 
@@ -111,4 +128,157 @@ Haz clic en el botón de copiar para enviarla directamente a tu portapapeles o u
 
   <br><br>
   <sub>© 2026 Yoangel-dev Soluciones Web — Todos los derechos reservados.</sub>
+=======
+## 📋 Descripción
+
+**Generador de Contraseñas Seguras** es una herramienta web desarrollada con tecnologías nativas del navegador (HTML5, CSS3 y JavaScript Vanilla) que permite crear contraseñas aleatorias y robustas de forma rápida e intuitiva.
+
+La generación de contraseñas utiliza la **Web Crypto API** (`crypto.getRandomValues`), que garantiza aleatoriedad criptográficamente segura, evitando los sesgos típicos de `Math.random()`.
+
+El diseño es **minimalista, moderno y accesible**, con una estética glassmorphism en tonos azul frío, adaptado completamente a dispositivos móviles y de escritorio.
+
+---
+
+## ✨ Funcionalidades
+
+| Funcionalidad | Descripción |
+|--------------|-------------|
+| 📏 **Longitud ajustable** | Slider interactivo para elegir entre 6 y 64 caracteres |
+| 🔠 **Mayúsculas** | Activa o desactiva letras en mayúscula (A–Z) |
+| 🔡 **Minúsculas** | Activa o desactiva letras en minúscula (a–z) |
+| 🔢 **Números** | Activa o desactiva dígitos (0–9) |
+| ✳️ **Caracteres especiales** | Activa o desactiva símbolos como `!@#$%^&*` |
+| 🎲 **Generación aleatoria** | Genera una contraseña criptográficamente segura |
+| 📋 **Copiar al portapapeles** | Copia la contraseña con un clic vía Clipboard API |
+| 👁️ **Mostrar / Ocultar** | Alterna la visibilidad de la contraseña generada |
+| 💪 **Indicador de fortaleza** | Muestra el nivel: Muy débil, Aceptable, Buena o Muy fuerte |
+
+---
+
+## 🚀 Cómo usar la aplicación
+
+1. **Abre** el archivo `index.html` en tu navegador (o despliégalo en un servidor).
+2. **Ajusta la longitud** de la contraseña moviendo el slider (valor recomendado: 16–24).
+3. **Activa o desactiva** los tipos de caracteres según tus necesidades.
+4. **Haz clic en "Generar contraseña"** para obtener una nueva contraseña segura.
+5. **Revisa el indicador de fortaleza** para evaluar la robustez de la contraseña.
+6. **Usa el botón de ojo** para ver la contraseña completa o mantenerla oculta.
+7. **Haz clic en el botón de copiar** para guardarla en el portapapeles.
+
+---
+
+## ⚙️ Cómo funciona cada opción
+
+### 📏 Longitud
+El slider controla cuántos caracteres tendrá la contraseña. El rango va de **6** (mínima seguridad) a **64** caracteres (máxima seguridad). La longitud recomendada para cuentas importantes es **mínimo 16 caracteres**.
+
+### 🔠 Mayúsculas / 🔡 Minúsculas
+Incluir ambas categorías aumenta el espacio de caracteres posibles, dificultando los ataques de fuerza bruta. Se recomienda activar ambas.
+
+### 🔢 Números
+Los dígitos del 0 al 9 aumentan significativamente la entropía de la contraseña. Es una práctica recomendada en todas las políticas de seguridad modernas.
+
+### ✳️ Caracteres especiales
+Símbolos como `! @ # $ % ^ & * ( ) - _ = + [ ] { } | ; : , . < > ?` hacen que la contraseña sea exponencialmente más difícil de descifrar.
+
+> ⚠️ **Nota**: Al menos un tipo de carácter debe estar activo para generar la contraseña.
+
+### 💪 Indicador de fortaleza
+El indicador evalúa la contraseña en tiempo real según:
+- Longitud (≥8, ≥12, ≥20 caracteres)
+- Variedad de tipos (mayúsculas + minúsculas)
+- Presencia de números
+- Presencia de símbolos
+
+| Nivel | Puntuación | Color |
+|-------|-----------|-------|
+| Muy débil  | ≤1 | 🔴 Rojo |
+| Aceptable  | 2–3 | 🟡 Amarillo |
+| Buena      | 4 | 🔵 Azul |
+| Muy fuerte | 5–6 | 🟢 Verde |
+
+---
+
+## 🔒 Seguridad técnica
+
+La generación de números aleatorios utiliza:
+
+```javascript
+crypto.getRandomValues(new Uint32Array(1));
+```
+
+Esto garantiza **aleatoriedad criptográficamente segura** (CSPRNG) disponible en todos los navegadores modernos, a diferencia de `Math.random()` que es predecible.
+
+Adicionalmente, se aplica el **algoritmo Fisher-Yates** para mezclar los caracteres de forma imparcial, garantizando que no haya posiciones predecibles aunque se usen caracteres obligatorios por grupo.
+
+---
+
+## 🖥️ Requisitos técnicos
+
+| Requisito | Detalle |
+|----------|---------|
+| **Navegador** | Chrome 37+, Firefox 21+, Safari 7+, Edge 12+ |
+| **JavaScript** | Habilitado (necesario para la generación) |
+| **Conexión** | Solo para cargar la fuente de Google Fonts (Inter) |
+| **Servidor** | No requerido — funciona como archivo estático |
+| **Dependencias** | Ninguna — 100% nativo |
+
+---
+
+## 📁 Estructura del proyecto
+
+```
+02-pass-generator/
+│
+├── 📄 index.html          # Estructura HTML5 semántica y accesible
+├── 📄 AGENTS.md           # Especificaciones del proyecto para el agente IA
+├── 📄 README.md           # Documentación del proyecto
+│
+└── 📂 assets/
+    ├── 📂 css/
+    │   └── styles.css     # Estilos CSS3 nativos (glassmorphism, responsive)
+    ├── 📂 js/
+    │   └── app.js         # Lógica JavaScript Vanilla (sin frameworks)
+    └── 📂 images/
+        └── (vacío)        # Directorio para recursos de imagen futuros
+```
+
+---
+
+## 🎨 Diseño y tecnologías
+
+- **HTML5** semántico con roles ARIA y atributos de accesibilidad (WCAG 2.1)
+- **CSS3** con variables personalizadas, flexbox, CSS grid, glassmorphism y animaciones
+- **JavaScript** Vanilla con Web Crypto API, Clipboard API y Fisher-Yates shuffle
+- **Tipografía**: Inter (Google Fonts)
+- **Paleta**: azules fríos (`#3b82f6`, `#06b6d4`, `#060d1f`)
+- **Base rem**: `1rem = 10px` (`font-size: 62.5%` en `:root`)
+
+---
+
+## ♿ Accesibilidad (WCAG)
+
+- Roles ARIA correctos (`role="status"`, `role="alert"`, `aria-live`)
+- Labels descriptivos en todos los controles interactivos
+- Soporte completo de navegación por teclado (`focus-visible`)
+- Compatibilidad con `prefers-reduced-motion`
+- Contraste de colores adecuado (mínimo AA)
+- Estructura de encabezados correcta (`h1` único por página)
+
+---
+
+## 👨‍💻 Créditos y autoría
+
+<div align="center">
+
+**Desarrollado por [Yoangel-dev Soluciones Web](https://github.com/yoangel-dev)**
+
+*Experto en desarrollo web con 12 años de experiencia.*  
+*Especializado en aplicaciones web modernas, accesibles y de alto rendimiento.*
+
+---
+
+© 2024 Yoangel-dev Soluciones Web. Todos los derechos reservados.
+
+>>>>>>> a6704eb (Add 02-pass-generator project with full documentation (README.md) — Desarrollado por Yoangel-dev Soluciones Web)
 </div>

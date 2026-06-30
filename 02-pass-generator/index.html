@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Generador de contraseñas aleatorias y seguras. Personaliza la longitud, tipo de caracteres y consulta la fortaleza de tu contraseña." />
+  <meta name="author" content="Yoangel-dev Soluciones Web" />
+  <title>Generador de Contraseñas Seguras | Yoangel-dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <!-- ==========================================
+       Fondo animado con partículas/gradiente
+  ========================================== -->
+  <div class="bg-gradient" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+  </div>
+
+  <!-- ==========================================
+       Contenido principal
+  ========================================== -->
+  <main class="main" id="main-content">
+
+    <!-- Encabezado -->
+    <header class="app-header">
+      <div class="app-header__icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h1 class="app-header__title">Generador de Contraseñas</h1>
+      <p class="app-header__subtitle">Crea contraseñas seguras y aleatorias al instante</p>
+    </header>
+
+    <!-- Tarjeta principal -->
+    <section class="card" aria-label="Herramienta generadora de contraseñas">
+
+      <!-- ---- Resultado de la contraseña ---- -->
+      <div class="password-display" role="region" aria-label="Contraseña generada">
+        <div class="password-display__field">
+          <!-- El campo se manipula como type password/text vía JS -->
+          <input
+            type="password"
+            id="password-output"
+            class="password-display__input"
+            readonly
+            aria-label="Contraseña generada"
+            aria-live="polite"
+            placeholder="Genera tu contraseña..."
+            value=""
+          />
+          <!-- Botón mostrar/ocultar -->
+          <button
+            type="button"
+            id="btn-toggle-visibility"
+            class="password-display__btn password-display__btn--eye"
+            aria-label="Mostrar contraseña"
+            title="Mostrar / Ocultar contraseña"
+          >
+            <!-- Icono ojo (visible cuando password está oculto) -->
+            <svg id="icon-eye-show" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <!-- Icono ojo tachado (visible cuando password está visible) -->
+            <svg id="icon-eye-hide" class="icon icon--hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+            </svg>
+          </button>
+          <!-- Botón copiar -->
+          <button
+            type="button"
+            id="btn-copy"
+            class="password-display__btn password-display__btn--copy"
+            aria-label="Copiar contraseña al portapapeles"
+            title="Copiar al portapapeles"
+          >
+            <svg id="icon-copy" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <svg id="icon-check" class="icon icon--hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mensaje de feedback para copiar -->
+        <p id="copy-feedback" class="copy-feedback" role="status" aria-live="polite"></p>
+      </div>
+
+      <!-- ---- Indicador de fortaleza ---- -->
+      <div class="strength-meter" role="region" aria-label="Indicador de fortaleza de la contraseña">
+        <div class="strength-meter__bars" aria-hidden="true">
+          <span class="strength-bar" id="strength-bar-1"></span>
+          <span class="strength-bar" id="strength-bar-2"></span>
+          <span class="strength-bar" id="strength-bar-3"></span>
+          <span class="strength-bar" id="strength-bar-4"></span>
+        </div>
+        <span id="strength-label" class="strength-meter__label" aria-live="polite">-</span>
+      </div>
+
+      <!-- ---- Formulario de opciones ---- -->
+      <form id="options-form" class="options-form" novalidate aria-label="Opciones de la contraseña">
+
+        <!-- Longitud -->
+        <div class="form-group form-group--length">
+          <div class="form-group__header">
+            <label for="length-slider" class="form-label">Longitud de la contraseña</label>
+            <output id="length-value" class="length-badge" for="length-slider" aria-live="polite">12</output>
+          </div>
+          <input
+            type="range"
+            id="length-slider"
+            class="slider"
+            min="6"
+            max="64"
+            value="12"
+            step="1"
+            aria-label="Longitud de la contraseña"
+            aria-valuemin="6"
+            aria-valuemax="64"
+            aria-valuenow="12"
+          />
+          <div class="slider-labels" aria-hidden="true">
+            <span>6</span>
+            <span>64</span>
+          </div>
+        </div>
+
+        <!-- Opciones de caracteres -->
+        <fieldset class="form-group form-group--options">
+          <legend class="form-label">Incluir caracteres</legend>
+
+          <div class="options-grid">
+
+            <!-- Mayúsculas -->
+            <label class="toggle-label" for="chk-uppercase">
+              <input
+                type="checkbox"
+                id="chk-uppercase"
+                class="toggle-input"
+                checked
+                aria-describedby="desc-uppercase"
+              />
+              <span class="toggle-switch" aria-hidden="true"></span>
+              <span class="toggle-text">
+                <span class="toggle-text__name">Mayúsculas</span>
+                <span class="toggle-text__example" id="desc-uppercase">A B C D...</span>
+              </span>
+            </label>
+
+            <!-- Minúsculas -->
+            <label class="toggle-label" for="chk-lowercase">
+              <input
+                type="checkbox"
+                id="chk-lowercase"
+                class="toggle-input"
+                checked
+                aria-describedby="desc-lowercase"
+              />
+              <span class="toggle-switch" aria-hidden="true"></span>
+              <span class="toggle-text">
+                <span class="toggle-text__name">Minúsculas</span>
+                <span class="toggle-text__example" id="desc-lowercase">a b c d...</span>
+              </span>
+            </label>
+
+            <!-- Números -->
+            <label class="toggle-label" for="chk-numbers">
+              <input
+                type="checkbox"
+                id="chk-numbers"
+                class="toggle-input"
+                checked
+                aria-describedby="desc-numbers"
+              />
+              <span class="toggle-switch" aria-hidden="true"></span>
+              <span class="toggle-text">
+                <span class="toggle-text__name">Números</span>
+                <span class="toggle-text__example" id="desc-numbers">0 1 2 3...</span>
+              </span>
+            </label>
+
+            <!-- Caracteres especiales -->
+            <label class="toggle-label" for="chk-symbols">
+              <input
+                type="checkbox"
+                id="chk-symbols"
+                class="toggle-input"
+                aria-describedby="desc-symbols"
+              />
+              <span class="toggle-switch" aria-hidden="true"></span>
+              <span class="toggle-text">
+                <span class="toggle-text__name">Especiales</span>
+                <span class="toggle-text__example" id="desc-symbols">! @ # $ %...</span>
+              </span>
+            </label>
+
+          </div>
+        </fieldset>
+
+        <!-- Mensaje de error / validación -->
+        <p id="form-error" class="form-error" role="alert" aria-live="assertive"></p>
+
+        <!-- Botón generar -->
+        <button type="submit" id="btn-generate" class="btn-generate" aria-label="Generar contraseña aleatoria">
+          <svg class="btn-generate__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          Generar contraseña
+        </button>
+
+      </form>
+    </section>
+
+    <!-- Pie de página -->
+    <footer class="app-footer">
+      <p>Desarrollado por <strong>Yoangel-dev Soluciones Web</strong></p>
+    </footer>
+
+  </main>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

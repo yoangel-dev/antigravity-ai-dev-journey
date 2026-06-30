@@ -1,0 +1,764 @@
+/* ============================================================
+   styles.css — Generador de Contraseñas
+   Autor: Yoangel-dev Soluciones Web
+   Descripción: Hoja de estilos principal. Diseño minimalista
+   moderno con paleta de colores azul frío y glassmorphism.
+   Base rem: 1rem = 10px (via font-size: 62.5% en :root)
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. Google Fonts import + Variables CSS
+---------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Tipografía */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Colores base */
+  --color-bg:              #070d1f;
+  --color-bg-secondary:    #0d1733;
+  --color-surface:         rgba(13, 25, 60, 0.75);
+  --color-surface-border:  rgba(59, 130, 246, 0.18);
+  --color-surface-hover:   rgba(59, 130, 246, 0.08);
+
+  /* Azules principales */
+  --color-primary:         #3b82f6;
+  --color-primary-hover:   #2563eb;
+  --color-primary-light:   #60a5fa;
+  --color-accent:          #06b6d4;
+  --color-accent-light:    #22d3ee;
+
+  /* Texto */
+  --color-text:            #e2e8f0;
+  --color-text-muted:      #94a3b8;
+  --color-text-faint:      #475569;
+
+  /* Fortaleza */
+  --color-weak:            #ef4444;
+  --color-fair:            #f59e0b;
+  --color-good:            #3b82f6;
+  --color-strong:          #10b981;
+
+  /* Espaciados */
+  --space-xs:   0.4rem;
+  --space-sm:   0.8rem;
+  --space-md:   1.6rem;
+  --space-lg:   2.4rem;
+  --space-xl:   3.2rem;
+  --space-2xl:  4.8rem;
+
+  /* Bordes */
+  --radius-sm:  0.6rem;
+  --radius-md:  1.2rem;
+  --radius-lg:  2rem;
+  --radius-xl:  2.8rem;
+  --radius-full: 99rem;
+
+  /* Sombras */
+  --shadow-card: 0 2.5rem 6rem rgba(0, 0, 0, 0.55), 0 0 0 1px var(--color-surface-border);
+  --shadow-glow: 0 0 3rem rgba(59, 130, 246, 0.2);
+  --shadow-btn:  0 0.8rem 2.4rem rgba(59, 130, 246, 0.4);
+
+  /* Transiciones */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.25s ease;
+  --transition-slow:   0.4s ease;
+}
+
+/* ----------------------------------------------------------
+   2. Reset y base
+---------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base rem = 10px */
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ----------------------------------------------------------
+   3. Fondo animado con orbes
+---------------------------------------------------------- */
+.bg-gradient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(59, 130, 246, 0.25) 0%, transparent 60%),
+    linear-gradient(180deg, #070d1f 0%, #0a1128 100%);
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(8rem);
+  opacity: 0.35;
+  animation: floatOrb 8s ease-in-out infinite;
+}
+
+.bg-orb--1 {
+  width: 50rem;
+  height: 50rem;
+  background: radial-gradient(circle, #1d4ed8, transparent 70%);
+  top: -15rem;
+  left: -15rem;
+  animation-duration: 10s;
+}
+
+.bg-orb--2 {
+  width: 40rem;
+  height: 40rem;
+  background: radial-gradient(circle, #06b6d4, transparent 70%);
+  top: 40%;
+  right: -10rem;
+  animation-duration: 13s;
+  animation-delay: -3s;
+}
+
+.bg-orb--3 {
+  width: 35rem;
+  height: 35rem;
+  background: radial-gradient(circle, #3730a3, transparent 70%);
+  bottom: -10rem;
+  left: 30%;
+  animation-duration: 11s;
+  animation-delay: -6s;
+}
+
+@keyframes floatOrb {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-3rem) scale(1.06); }
+}
+
+/* ----------------------------------------------------------
+   4. Layout principal
+---------------------------------------------------------- */
+.main {
+  width: 100%;
+  max-width: 54rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+/* ----------------------------------------------------------
+   5. Encabezado de la aplicación
+---------------------------------------------------------- */
+.app-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.app-header__icon {
+  width: 6.4rem;
+  height: 6.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-btn), 0 0 4rem rgba(6, 182, 212, 0.3);
+  animation: pulseIcon 3s ease-in-out infinite;
+  color: white;
+}
+
+.app-header__icon svg {
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+@keyframes pulseIcon {
+  0%, 100% { box-shadow: var(--shadow-btn), 0 0 4rem rgba(6, 182, 212, 0.3); }
+  50%       { box-shadow: var(--shadow-btn), 0 0 6rem rgba(6, 182, 212, 0.5); }
+}
+
+.app-header__title {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.app-header__subtitle {
+  font-size: 1.4rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* ----------------------------------------------------------
+   6. Tarjeta principal (Glassmorphism)
+---------------------------------------------------------- */
+.card {
+  width: 100%;
+  background: var(--color-surface);
+  backdrop-filter: blur(2.4rem) saturate(1.8);
+  -webkit-backdrop-filter: blur(2.4rem) saturate(1.8);
+  border: 1px solid var(--color-surface-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  transition: box-shadow var(--transition-slow);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+}
+
+/* ----------------------------------------------------------
+   7. Campo de contraseña generada
+---------------------------------------------------------- */
+.password-display {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.password-display__field {
+  display: flex;
+  align-items: center;
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-surface-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  gap: var(--space-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.password-display__field:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.3rem rgba(59, 130, 246, 0.18);
+}
+
+.password-display__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.12em;
+  min-width: 0;
+  caret-color: var(--color-primary);
+}
+
+.password-display__input::placeholder {
+  color: var(--color-text-faint);
+  font-family: var(--font-family);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+/* Botones del campo de contraseña */
+.password-display__btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-xs);
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.password-display__btn:hover {
+  color: var(--color-primary-light);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.password-display__btn:active {
+  transform: scale(0.9);
+}
+
+.password-display__btn--copy:hover {
+  color: var(--color-accent-light);
+  background: rgba(6, 182, 212, 0.1);
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+  display: block;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.icon--hidden {
+  display: none;
+}
+
+/* Feedback de copia */
+.copy-feedback {
+  font-size: 1.2rem;
+  color: var(--color-accent-light);
+  text-align: right;
+  min-height: 1.6rem;
+  opacity: 0;
+  transform: translateY(-0.4rem);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.copy-feedback.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----------------------------------------------------------
+   8. Indicador de fortaleza
+---------------------------------------------------------- */
+.strength-meter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.strength-meter__bars {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.08);
+  transition: background var(--transition-base), box-shadow var(--transition-base);
+}
+
+/* Estados de fortaleza */
+.strength-bar.active--weak    { background: var(--color-weak);   box-shadow: 0 0 0.8rem rgba(239, 68,  68,  0.5); }
+.strength-bar.active--fair    { background: var(--color-fair);   box-shadow: 0 0 0.8rem rgba(245, 158, 11,  0.5); }
+.strength-bar.active--good    { background: var(--color-good);   box-shadow: 0 0 0.8rem rgba(59,  130, 246, 0.5); }
+.strength-bar.active--strong  { background: var(--color-strong); box-shadow: 0 0 0.8rem rgba(16,  185, 129, 0.5); }
+
+.strength-meter__label {
+  font-size: 1.3rem;
+  font-weight: 600;
+  min-width: 10rem;
+  text-align: right;
+  color: var(--color-text-muted);
+  transition: color var(--transition-base);
+}
+
+.strength-meter__label.label--weak    { color: var(--color-weak); }
+.strength-meter__label.label--fair    { color: var(--color-fair); }
+.strength-meter__label.label--good    { color: var(--color-good); }
+.strength-meter__label.label--strong  { color: var(--color-strong); }
+
+/* ----------------------------------------------------------
+   9. Formulario de opciones
+---------------------------------------------------------- */
+.options-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Grupo genérico */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.form-group__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ----------------------------------------------------------
+   10. Longitud (Slider)
+---------------------------------------------------------- */
+.length-badge {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary-light);
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 1rem;
+  min-width: 4.5rem;
+  text-align: center;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+/* Slider personalizado */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 0.6rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    to right,
+    var(--color-primary) 0%,
+    var(--color-primary) var(--slider-progress, 9.6%),
+    rgba(255, 255, 255, 0.1) var(--slider-progress, 9.6%),
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  cursor: pointer;
+  outline: none;
+  transition: box-shadow var(--transition-fast);
+}
+
+.slider:focus-visible {
+  box-shadow: 0 0 0 0.3rem rgba(59, 130, 246, 0.35);
+}
+
+/* Thumb — Chrome/Safari/Edge */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  border: 3px solid var(--color-bg);
+  box-shadow: 0 0 1rem rgba(59, 130, 246, 0.6);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 1.6rem rgba(59, 130, 246, 0.8);
+}
+
+/* Thumb — Firefox */
+.slider::-moz-range-thumb {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  border: 3px solid var(--color-bg);
+  box-shadow: 0 0 1rem rgba(59, 130, 246, 0.6);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 1.6rem rgba(59, 130, 246, 0.8);
+}
+
+/* Track — Firefox */
+.slider::-moz-range-track {
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Etiquetas extremos */
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  color: var(--color-text-faint);
+  padding: 0 0.4rem;
+}
+
+/* ----------------------------------------------------------
+   11. Toggles personalizados (checkboxes)
+---------------------------------------------------------- */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-surface-border);
+  border-radius: var(--radius-md);
+  padding: 1.4rem var(--space-md);
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+  user-select: none;
+}
+
+.toggle-label:hover {
+  background: var(--color-surface-hover);
+  border-color: rgba(59, 130, 246, 0.35);
+  transform: translateY(-0.1rem);
+}
+
+/* Ocultar el input nativo */
+.toggle-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Toggle visual */
+.toggle-switch {
+  position: relative;
+  width: 4rem;
+  height: 2.2rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  transition: background var(--transition-base), border-color var(--transition-base);
+}
+
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0.3rem;
+  transform: translateY(-50%);
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--color-text-faint);
+  transition: transform var(--transition-base), background var(--transition-base), box-shadow var(--transition-base);
+}
+
+/* Estado activo del toggle */
+.toggle-input:checked + .toggle-switch {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  border-color: transparent;
+}
+
+.toggle-input:checked + .toggle-switch::after {
+  transform: translateY(-50%) translateX(1.8rem);
+  background: white;
+  box-shadow: 0 0 0.6rem rgba(59, 130, 246, 0.5);
+}
+
+/* Focus visible en el toggle */
+.toggle-input:focus-visible + .toggle-switch {
+  outline: 0.3rem solid var(--color-primary);
+  outline-offset: 0.3rem;
+}
+
+/* Highlight del label cuando está activo */
+.toggle-input:checked ~ .toggle-text .toggle-text__name {
+  color: var(--color-primary-light);
+}
+
+.toggle-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.toggle-text__name {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+}
+
+.toggle-text__example {
+  font-size: 1.1rem;
+  color: var(--color-text-faint);
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.08em;
+}
+
+/* ----------------------------------------------------------
+   12. Mensaje de error del formulario
+---------------------------------------------------------- */
+.form-error {
+  font-size: 1.3rem;
+  color: var(--color-weak);
+  text-align: center;
+  min-height: 1.8rem;
+  opacity: 0;
+  transform: translateY(-0.4rem);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.form-error.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----------------------------------------------------------
+   13. Botón generar
+---------------------------------------------------------- */
+.btn-generate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: 1.6rem var(--space-xl);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: white;
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-generate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.btn-generate:hover::before {
+  opacity: 1;
+}
+
+.btn-generate:hover {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 1.2rem 3.2rem rgba(59, 130, 246, 0.55);
+}
+
+.btn-generate:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-btn);
+}
+
+.btn-generate__icon {
+  width: 2rem;
+  height: 2rem;
+  transition: transform var(--transition-base);
+}
+
+.btn-generate:hover .btn-generate__icon {
+  transform: rotate(180deg);
+}
+
+/* ----------------------------------------------------------
+   14. Pie de página
+---------------------------------------------------------- */
+.app-footer {
+  font-size: 1.2rem;
+  color: var(--color-text-faint);
+  text-align: center;
+}
+
+.app-footer strong {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* ----------------------------------------------------------
+   15. Responsive — Mobile first
+---------------------------------------------------------- */
+@media (max-width: 480px) {
+  body {
+    padding: var(--space-md);
+    align-items: flex-start;
+    padding-top: var(--space-xl);
+  }
+
+  .app-header__title {
+    font-size: 2.4rem;
+  }
+
+  .card {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .password-display__input {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 640px) {
+  .options-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ----------------------------------------------------------
+   16. Accesibilidad — Reducir movimiento
+---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ----------------------------------------------------------
+   17. Scrollbar personalizada
+---------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
