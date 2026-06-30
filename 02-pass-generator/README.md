@@ -143,7 +143,7 @@ Haz clic en el botón de copiar para enviarla directamente a tu portapapeles.
 
 👨‍💻 Créditos y Autoría
 
-Desarrollado por Yoangel-dev Soluciones WebExperto en Desarrollo Web y Consultoría SAP ERP.
+Desarrollado por Yoangel-dev Soluciones Web Experto en Desarrollo Web y Consultoría SAP ERP.
 Especializado en aplicaciones web modernas, accesibles y de alto rendimiento.
 
 © 2026 Yoangel-dev Soluciones Web — Todos los derechos reservados.
