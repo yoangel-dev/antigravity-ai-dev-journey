@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+/* ── Design tokens (light mode) ──────────────────────────────────────── */
+:root {
+  --bg:             #f8f9ff;
+  --surface:        #ffffff;
+  --surface-low:    #f1f3fb;
+  --surface-mid:    #e0e2ea;
+  --border:         #c0c7d4;
+  --text:           #181c21;
+  --text-variant:   #414752;
+  --text-muted:     #717784;
+  --brand:          #005da9;
+  --brand-hover:    #004c8c;
+  --brand-light:    #d4e3ff;
+  --brand-bg:       #e8f0fb;
+}
+
+/* ── Dark mode overrides ─────────────────────────────────────────────── */
+.dark {
+  --bg:             #0f1117;
+  --surface:        #1a1e2a;
+  --surface-low:    #232736;
+  --surface-mid:    #2d3144;
+  --border:         #3a3f55;
+  --text:           #e8eaf2;
+  --text-variant:   #a8aec0;
+  --text-muted:     #717784;
+  --brand:          #4da3f5;
+  --brand-hover:    #6cb8ff;
+  --brand-light:    #1a3556;
+  --brand-bg:       #1a2d45;
+}
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-brand-primary:        var(--brand);
+  --color-brand-primary-hover:  var(--brand-hover);
+  --color-brand-secondary:      #455f85;
+  --color-brand-background:     var(--bg);
+  --color-brand-surface:        var(--surface);
+  --color-brand-surface-low:    var(--surface-low);
+  --color-brand-surface-highest:var(--surface-mid);
+  --color-brand-text:           var(--text);
+  --color-brand-text-variant:   var(--text-variant);
+}
+
+/* ── Base styles ─────────────────────────────────────────────────────── */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Dark Mode Toggle Switch ─────────────────────────────────────────── */
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 6px;
+}
+
+.theme-toggle__track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #c0c7d4, #a8aec0);
+  transition: background 0.35s ease;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.theme-toggle__track.active {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.3), 0 0 8px rgba(99,102,241,0.4);
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  border-radius: 9999px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle__thumb.active {
+  transform: translateX(20px);
+}
+
+/* ── Dark mode specific overrides ────────────────────────────────────── */
+.dark .task-card {
+  background-color: var(--surface);
+  border-color: var(--border);
+}
+
+.dark .sidebar-nav {
+  background-color: var(--surface-low);
+  border-color: var(--border);
+}
