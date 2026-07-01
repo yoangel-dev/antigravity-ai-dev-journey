@@ -1,0 +1,888 @@
+/* ============================================================
+   GlobalExchange Premium — Hoja de Estilos Principal
+   Base font-size: 10px (1rem = 10px)
+   ============================================================ */
+
+/* --- 1. Reset & Base ---------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 10px; /* Base: 1rem = 10px */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 1.6rem;
+    color: #1a1a2e;
+    background: #FDFBF7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 4rem 2rem;
+}
+
+/* --- 2. Variables de Color ----------------------------------- */
+:root {
+    --color-primary:      #8C1515;
+    --color-primary-dark: #6b0f0f;
+    --color-gold:         #C4992A;
+    --color-gold-light:   #d4aa3a;
+    --color-bg:           #FDFBF7;
+    --color-card:         #ffffff;
+    --color-card-shadow:  rgba(140, 21, 21, 0.08);
+    --color-input-bg:     #FAF9F6;
+    --color-input-recv:   #fdf0f0;
+    --color-border:       #e8e0e0;
+    --color-text-main:    #1a1a2e;
+    --color-text-muted:   #8a7878;
+    --color-text-label:   #9b8888;
+    --color-green:        #16a34a;
+    --color-green-bg:     #f0fdf4;
+    --color-badge-bg:     #fce8e8;
+    --color-badge-dot:    #22c55e;
+    --radius-card:        2rem;
+    --radius-input:       1.2rem;
+    --radius-btn:         1.2rem;
+    --shadow-card:        0 8px 40px rgba(140, 21, 21, 0.10), 0 2px 8px rgba(0,0,0,0.04);
+    --transition:         0.25s ease;
+}
+
+/* --- 3. Header / Logo --------------------------------------- */
+.app-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 3.2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-icon {
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, var(--color-gold), #e8b830);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(196, 153, 42, 0.35);
+    flex-shrink: 0;
+}
+
+.logo-icon svg {
+    width: 2.2rem;
+    height: 2.2rem;
+    fill: #ffffff;
+}
+
+.logo-text {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+
+.logo-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* --- 4. Main Container -------------------------------------- */
+.main-container {
+    width: 100%;
+    max-width: 58rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    flex: 1;
+}
+
+/* --- 5. Card Base ------------------------------------------- */
+.card {
+    background: var(--color-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 3.2rem;
+}
+
+/* --- 6. Converter Card -------------------------------------- */
+.converter-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.8rem;
+}
+
+.converter-card__title {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    letter-spacing: -0.02em;
+}
+
+/* Badge Mercado */
+.market-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--color-badge-bg);
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 0.6rem 1.4rem;
+    border-radius: 10rem;
+    flex-shrink: 0;
+}
+
+.market-badge__dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: var(--color-badge-dot);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+    animation: pulse-dot 2s infinite;
+    flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+    0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+    70%  { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* --- 7. Fields Group ---------------------------------------- */
+.fields-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 2.4rem;
+}
+
+/* Línea divisoria horizontal a la altura del swap button */
+.fields-divider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.5px;
+    background: var(--color-border);
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Swap Button */
+.swap-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: 1.5px solid #e8d9b0;
+    background: #ffffff;
+    color: var(--color-gold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(196, 153, 42, 0.18), 0 1px 4px rgba(0,0,0,0.06);
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.swap-btn:hover {
+    background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
+    color: #ffffff;
+    border-color: var(--color-gold);
+    transform: translate(-50%, -50%) rotate(180deg);
+    box-shadow: 0 6px 20px rgba(196, 153, 42, 0.40);
+}
+
+.swap-btn svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    pointer-events: none;
+}
+
+/* --- 8. Input Field ----------------------------------------- */
+.field {
+    display: flex;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-input);
+    /* SIN overflow:hidden para que el dropdown nativo del select no quede recortado */
+    background: var(--color-input-bg);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.field:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(140, 21, 21, 0.08);
+}
+
+/* Campo origen: tiene radio en las 4 esquinas pero sin borde inferior */
+.field--origin {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+}
+
+/* Campo destino: tiene radio en las 4 esquinas pero sin borde superior */
+.field--destination {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top-color: transparent;
+    background: var(--color-input-recv);
+}
+
+.field__input-wrapper {
+    flex: 1;
+    padding: 1.6rem 2rem;
+    min-width: 0;
+}
+
+.field__label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--color-text-label);
+    margin-bottom: 0.4rem;
+    white-space: nowrap;
+}
+
+.field__amount {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    min-width: 0;
+    font-family: inherit;
+    line-height: 1.2;
+}
+
+.field__amount--readonly {
+    cursor: default;
+    pointer-events: none;
+    color: var(--color-text-main);
+}
+
+.field__amount::placeholder {
+    color: #c4b8b8;
+}
+
+/* Ocultar flechas numéricas en inputs */
+.field__amount::-webkit-outer-spin-button,
+.field__amount::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.field__amount[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Separador vertical */
+.field__separator {
+    width: 1.5px;
+    background: var(--color-border);
+    margin: 1.2rem 0;
+    flex-shrink: 0;
+}
+
+/* Selector de moneda */
+.currency-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0 1.8rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    white-space: nowrap;
+    transition: color var(--transition);
+    flex-shrink: 0;
+}
+
+.currency-selector:hover {
+    color: var(--color-primary);
+}
+
+.currency-selector__flag {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.currency-selector__code {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.currency-selector__arrow {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-left: 0.2rem;
+}
+
+/* --- 9. Selector de Moneda ---------------------------------- */
+
+/*
+ * Estructura:
+ *   .select-wrapper          — contenedor flex horizontal
+ *     .select-wrapper__flag  — emoji de bandera (span, actualizado por JS)
+ *     .select-wrapper__inner — envuelve el select + la flecha
+ *       .select-wrapper__select — <select> nativo visible sin flechas del navegador
+ *       .select-wrapper__arrow  — flecha ▾ decorativa
+ */
+.select-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 1.6rem 0 1.4rem;  /* derecha: espacio para el inner */
+    flex-shrink: 0;
+    gap: 0.6rem;
+}
+
+/* Bandera: emoji grande, actualizado por JS al cambiar moneda */
+.select-wrapper__flag {
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+    display: block;
+    min-width: 2.2rem;
+    text-align: center;
+}
+
+/* Envoltorio relativo para el select + flecha */
+.select-wrapper__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Select nativo: appearance none + padding-right para dejar hueco a la flecha */
+.select-wrapper__select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a1a2e;  /* color explícito, no variable, para máxima compatibilidad */
+    cursor: pointer;
+    padding: 0 2rem 0 0; /* hueco para la flecha a la derecha */
+    min-width: 4.5rem;
+    line-height: 1.2;
+}
+
+.select-wrapper__select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Flecha decorativa ▾, encima del select (pointer-events:none) */
+.select-wrapper__arrow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    color: #8a7878;
+    pointer-events: none;
+    line-height: 1;
+}
+
+/* --- 10. Info de Tasa -------------------------------------- */
+.rate-info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2.8rem;
+    gap: 1.6rem;
+}
+
+.rate-info__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.rate-info__value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    min-height: 2rem;
+}
+
+.rate-info__change {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--color-green);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.rate-info__chart {
+    flex-shrink: 0;
+    width: 10rem;
+    height: 4rem;
+    overflow: visible;
+}
+
+/* --- 11. Indicador de carga --------------------------------- */
+.loading-overlay {
+    display: none;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.3rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.6rem;
+}
+
+.loading-overlay.is-visible {
+    display: flex;
+}
+
+.loading-spinner {
+    width: 1.6rem;
+    height: 1.6rem;
+    border: 2px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- 12. Mensaje de Error ----------------------------------- */
+.error-msg {
+    display: none;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.3rem;
+    color: #b45309;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 0.8rem;
+    padding: 1rem 1.4rem;
+    margin-bottom: 1.6rem;
+}
+
+.error-msg.is-visible {
+    display: flex;
+}
+
+/* --- 13. Botón Continuar ------------------------------------ */
+.btn-convert {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    width: 100%;
+    padding: 1.8rem 2.4rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #a31c1c 50%, var(--color-primary-dark) 100%);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1.7rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-btn);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    box-shadow: 0 4px 20px rgba(140, 21, 21, 0.35);
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-convert::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.btn-convert:hover::before {
+    opacity: 1;
+}
+
+.btn-convert:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(140, 21, 21, 0.45);
+}
+
+.btn-convert:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(140, 21, 21, 0.3);
+}
+
+.btn-convert svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    transition: transform var(--transition);
+}
+
+.btn-convert:hover svg {
+    transform: translateX(4px);
+}
+
+/* --- 14. Historial Card ------------------------------------- */
+.history-card {
+    padding: 0;
+    /* Sin overflow:hidden para no bloquear la animación del acordeón */
+}
+
+.history-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 2.4rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background var(--transition);
+    border-radius: var(--radius-card);
+    width: 100%;  /* El <button> necesita width:100% para llenar la card */
+    text-align: left;
+}
+
+.history-card__header:hover {
+    background: #fdf8f8;
+}
+
+.history-card__header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.history-card__icon {
+    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+}
+
+.history-card__icon svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.history-card__title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+}
+
+.history-card__chevron {
+    color: var(--color-text-muted);
+    transition: transform var(--transition);
+    display: flex;
+    align-items: center;
+}
+
+.history-card__chevron svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.history-card.is-open .history-card__chevron {
+    transform: rotate(180deg);
+}
+
+.history-card.is-open .history-card__header {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* El body usa overflow:hidden + max-height para el efecto acordeón */
+.history-card__body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.history-card.is-open .history-card__body {
+    max-height: 60rem;
+}
+
+/* El inner tiene padding 0 en estado colapsado (lo hereda del max-height:0) */
+.history-card__inner {
+    padding: 0 2.4rem 2.4rem;
+}
+
+/* Separador */
+.history-divider {
+    height: 1.5px;
+    background: var(--color-border);
+    margin-bottom: 2rem;
+}
+
+/* Lista vacía: compacta y centrada */
+.history-empty {
+    text-align: center;
+    padding: 1.6rem 0;
+    color: var(--color-text-muted);
+    font-size: 1.4rem;
+    line-height: 1.6;
+}
+
+.history-empty svg {
+    width: 3.2rem;
+    height: 3.2rem;
+    margin: 0 auto 1rem;
+    display: block;
+    color: #d8c8c8;
+}
+
+/* Lista de historial */
+.history-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 1.6rem;
+    background: #fdf8f8;
+    border-radius: 1rem;
+    border: 1px solid #f0e8e8;
+    gap: 1.2rem;
+    transition: background var(--transition);
+}
+
+.history-item:hover {
+    background: #faf2f2;
+}
+
+.history-item__conversion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.history-item__amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-item__rate {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+}
+
+.history-item__date {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+/* Botón limpiar historial */
+.btn-clear-history {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    padding: 1rem 0 0;
+    transition: color var(--transition);
+    margin-top: 0.8rem;
+}
+
+.btn-clear-history:hover {
+    color: var(--color-primary);
+}
+
+.btn-clear-history svg {
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+/* --- 15. Footer --------------------------------------------- */
+.app-footer {
+    width: 100%;
+    max-width: 58rem;
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text-muted);
+    letter-spacing: -0.02em;
+}
+
+.footer-copy {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    flex: 1;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.footer-links a {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--color-primary);
+}
+
+/* --- 16. Toast Notification --------------------------------- */
+.toast {
+    position: fixed;
+    bottom: 2.4rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(10rem);
+    background: #1a1a2e;
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 1.2rem 2.4rem;
+    border-radius: 10rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    z-index: 999;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.toast.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* --- 17. Responsive ---------------------------------------- */
+@media (max-width: 600px) {
+    body {
+        padding: 2.4rem 1.4rem;
+    }
+
+    .card {
+        padding: 2.2rem 1.8rem;
+    }
+
+    .converter-card__title {
+        font-size: 2.6rem;
+    }
+
+    .field__amount {
+        font-size: 2rem;
+    }
+
+    .logo-text {
+        font-size: 2.2rem;
+    }
+
+    .logo-icon {
+        width: 3.4rem;
+        height: 3.4rem;
+    }
+
+    .history-card__header,
+    .history-card__inner {
+        padding-left: 1.8rem;
+        padding-right: 1.8rem;
+    }
+
+    .app-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.2rem;
+    }
+
+    .footer-copy {
+        order: 2;
+    }
+
+    .footer-logo {
+        order: 1;
+    }
+
+    .footer-links {
+        order: 3;
+    }
+
+    .rate-info__chart {
+        display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    .select-wrapper__select {
+        min-width: 5.5rem;
+        font-size: 1.4rem;
+    }
+
+    .field__amount {
+        font-size: 1.8rem;
+    }
+
+    .market-badge {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+    }
+}

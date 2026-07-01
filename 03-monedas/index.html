@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="GlobalExchange Premium — Conversor de monedas en tiempo real con tasas actualizadas. Convierte entre más de 150 divisas de forma rápida y sencilla.">
+    <meta name="keywords" content="conversor monedas, tipos de cambio, divisas, GlobalExchange, cambio de moneda">
+    <meta name="author" content="Yoangel-dev Soluciones Web">
+    <title>GlobalExchange Premium | Conversor de Monedas en Tiempo Real</title>
+
+    <!-- Fuente: Inter desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Hoja de estilos principal -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ===================================================
+         CABECERA / LOGO
+    =================================================== -->
+    <header class="app-header" role="banner">
+        <div class="logo" aria-label="GlobalExchange Premium">
+            <!-- Icono de intercambio de divisas -->
+            <div class="logo-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"
+                    stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 4v6h6" />
+                    <path d="M23 20v-6h-6" />
+                    <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 0 1 3.51 15" />
+                </svg>
+            </div>
+            <span class="logo-text">GlobalExchange</span>
+        </div>
+        <p class="logo-subtitle">Premium</p>
+    </header>
+
+    <!-- ===================================================
+         CONTENIDO PRINCIPAL
+    =================================================== -->
+    <main class="main-container" id="main-content" role="main">
+
+        <!-- ─────────────────────────────────────────────
+             CARD PRINCIPAL: CONVERSOR
+        ───────────────────────────────────────────── -->
+        <article class="card converter-card" aria-label="Formulario de conversión de monedas">
+
+            <!-- Cabecera de la tarjeta -->
+            <div class="converter-card__header">
+                <h1 class="converter-card__title">Convertir</h1>
+                <div class="market-badge" role="status" aria-live="polite" aria-label="Estado del mercado">
+                    <span class="market-badge__dot" aria-hidden="true"></span>
+                    <span>Mercado Abierto</span>
+                </div>
+            </div>
+
+            <!-- Indicador de carga -->
+            <div class="loading-overlay" id="loading-overlay" role="status" aria-live="polite"
+                aria-label="Cargando tasas de cambio">
+                <div class="loading-spinner" aria-hidden="true"></div>
+                <span>Actualizando tasas de cambio…</span>
+            </div>
+
+            <!-- Mensaje de error / fallback -->
+            <div class="error-msg" id="error-msg" role="alert" aria-live="assertive">
+                <span id="error-text"></span>
+            </div>
+
+            <!-- Campos de conversión -->
+            <div class="fields-group" role="group" aria-label="Campos de conversión">
+
+                <!-- Campo Origen: cantidad a enviar -->
+                <div class="field field--origin">
+                    <div class="field__input-wrapper">
+                        <label class="field__label" for="amount-input">Envías</label>
+                        <input type="number" id="amount-input" class="field__amount" value="1000" min="0" step="any"
+                            autocomplete="off" aria-label="Cantidad a convertir" placeholder="0.00">
+                    </div>
+                    <div class="field__separator" aria-hidden="true"></div>
+                    <!-- Selector de moneda origen -->
+                    <div class="select-wrapper">
+                        <span class="select-wrapper__flag" id="origin-flag">🇺🇸</span>
+                        <div class="select-wrapper__inner">
+                            <select id="origin-select" class="select-wrapper__select" aria-label="Moneda de origen">
+                                <!-- Opciones por JS -->
+                            </select>
+                            <span class="select-wrapper__arrow" aria-hidden="true">▾</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Línea divisoria a la altura del swap button -->
+                <div class="fields-divider" aria-hidden="true"></div>
+
+                <!-- Botón intercambiar monedas -->
+                <button type="button" id="swap-btn" class="swap-btn"
+                    aria-label="Intercambiar monedas de origen y destino" title="Intercambiar monedas">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M7 3L7 21M7 3L3 7M7 3L11 7" />
+                        <path d="M17 21L17 3M17 21L13 17M17 21L21 17" />
+                    </svg>
+                </button>
+
+                <!-- Campo Destino: cantidad recibida -->
+                <div class="field field--destination" aria-live="polite">
+                    <div class="field__input-wrapper">
+                        <label class="field__label" for="result-display">Recibes (Estimado)</label>
+                        <output id="result-display" class="field__amount field__amount--readonly" aria-live="polite"
+                            aria-label="Resultado de la conversión">—</output>
+                    </div>
+                    <div class="field__separator" aria-hidden="true"></div>
+                    <!-- Selector de moneda destino -->
+                    <div class="select-wrapper">
+                        <span class="select-wrapper__flag" id="dest-flag">🇪🇺</span>
+                        <div class="select-wrapper__inner">
+                            <select id="dest-select" class="select-wrapper__select" aria-label="Moneda de destino">
+                                <!-- Opciones por JS -->
+                            </select>
+                            <span class="select-wrapper__arrow" aria-hidden="true">▾</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /fields-group -->
+
+            <!-- Información de tasa de cambio -->
+            <div class="rate-info" aria-live="polite">
+                <div class="rate-info__text">
+                    <span class="rate-info__value" id="rate-value">Cargando…</span>
+                    <span class="rate-info__change" id="rate-change"></span>
+                </div>
+                <!-- Mini gráfico de tendencia -->
+                <svg class="rate-info__chart" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"
+                    role="img">
+                    <path id="chart-line" d="M 0 30 L 12 25 L 25 28 L 37 20 L 50 22 L 62 15 L 75 18 L 87 10 L 100 12"
+                        fill="none" stroke="#C4992A" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+
+            <!-- Botón Continuar (guarda en historial) -->
+            <button type="button" id="continue-btn" class="btn-convert" aria-label="Guardar conversión en el historial">
+                <span>Continuar</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </button>
+
+        </article><!-- /converter-card -->
+
+        <!-- ─────────────────────────────────────────────
+             CARD HISTORIAL DE CONVERSIONES
+        ───────────────────────────────────────────── -->
+        <section class="card history-card" id="history-card" aria-label="Historial de conversiones">
+
+            <!-- Cabecera clicable para colapsar/expandir -->
+            <button type="button" id="history-toggle" class="history-card__header" aria-expanded="false"
+                aria-controls="history-body" aria-label="Mostrar u ocultar el historial de conversiones">
+                <div class="history-card__header-left">
+                    <span class="history-card__icon" aria-hidden="true">
+                        <!-- Icono reloj circular (historial) -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                    </span>
+                    <span class="history-card__title">Historial de Conversiones</span>
+                </div>
+                <span class="history-card__chevron" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </span>
+            </button>
+
+            <!-- Contenido del historial (colapsable) -->
+            <div class="history-card__body" id="history-body" aria-live="polite">
+                <div class="history-card__inner">
+                    <div class="history-divider" aria-hidden="true"></div>
+
+                    <!-- Estado vacío -->
+                    <div class="history-empty" id="history-empty" role="status">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+                            <path d="M12 8v4l3 3" />
+                        </svg>
+                        <p>Aún no hay conversiones guardadas.<br>Pulsa <strong>Continuar</strong> para añadir una.</p>
+                    </div>
+
+                    <!-- Lista de conversiones -->
+                    <ul class="history-list" id="history-list" aria-label="Lista de conversiones recientes"></ul>
+
+                    <!-- Botón limpiar historial -->
+                    <button type="button" id="clear-history-btn" class="btn-clear-history"
+                        aria-label="Borrar todo el historial de conversiones" style="display:none">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                        </svg>
+                        Borrar historial
+                    </button>
+
+                </div>
+            </div><!-- /history-body -->
+
+        </section><!-- /history-card -->
+
+    </main><!-- /main-container -->
+
+    <!-- ===================================================
+         PIE DE PÁGINA
+    =================================================== -->
+    <footer class="app-footer" role="contentinfo">
+        <span class="footer-logo" aria-label="GlobalExchange">GlobalExchange</span>
+        <p class="footer-copy">Desarrollado por Yoangel-dev Soluciones Web</p>
+        <nav aria-label="Enlaces del pie de página">
+            <ul class="footer-links">
+                <li><a href="#main-content">API Status</a></li>
+                <li><a href="#main-content">Términos</a></li>
+                <li><a href="#main-content">Privacidad</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <!-- Toast de notificación -->
+    <div id="toast" class="toast" role="alert" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Lógica principal -->
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
